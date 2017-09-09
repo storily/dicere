@@ -137,6 +137,7 @@ return [
      */
     'types' => [
         App\GraphQL\Type\ItemType::class,
+        App\GraphQL\Type\MetadataType::class,
     ],
 
     /*

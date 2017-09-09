@@ -5,6 +5,9 @@
     "config": {
         "sort-packages": true
     },
+    "minimum-stability": "dev",
+    "optimize-autoloader": true,
+    "prefer-stable": true,
     "require": {
         "php": "^7.1.9",
         "fideloper/proxy": "^3.3.4",
@@ -17,6 +20,7 @@
         "fzaninotto/faker": "^1.7.1",
         "mockery/mockery": "^0.9.9",
         "phpunit/phpunit": "^6.3.0",
+        "squizlabs/php_codesniffer": "^3.0.2",
         "vlucas/phpdotenv": "^2.4.0"
     },
     "autoload": {
@@ -30,7 +34,11 @@
             "database/"
         ]
     },
-    "minimum-stability": "dev",
-    "optimize-autoloader": true,
-    "prefer-stable": true
+    "scripts": {
+        "lint": "composer syntax && composer style",
+        "style": "vendor/bin/phpcs -spn",
+        "style:all": "vendor/bin/phpcs -sp",
+        "style:fix": "vendor/bin/phpcbf -sp",
+        "syntax": "find . -path ./vendor -prune -o -iname '*.php' | xargs -n1 php -l"
+    }
 }

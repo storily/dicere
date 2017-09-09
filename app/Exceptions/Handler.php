@@ -3,11 +3,15 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Symfony\Component\Debug\Exception\FlattenException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -45,6 +49,65 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        return parent::render($request, $e);
+        if ($e instanceof HttpResponseException) {
+            return $e->getResponse();
+        } elseif ($e instanceof ModelNotFoundException) {
+            $e = new NotFoundHttpException($e->getMessage(), $e);
+        } elseif ($e instanceof AuthorizationException) {
+            $e = new HttpException(403, $e->getMessage());
+        } elseif ($e instanceof ValidationException && $e->getResponse()) {
+            return $e->getResponse();
+        }
+
+        if ($e instanceof FlattenException) {
+            try {
+                $content = [];
+                $count = count($e->getAllPrevious());
+                $total = $count + 1;
+                foreach ($e->toArray() as $position => $err) {
+                    $ind = $count - $position + 1;
+                    $message = $err['message'];
+                    $ej = [
+                        'message' => sprintf("(%2d/%2d) - %s: %s\n", $ind, $total, $err['class'], $message),
+                        'trace' => []
+                    ];
+
+                    foreach ($err['trace'] as $trace) {
+                        if ($trace['function']) {
+                            $ej['trace'][] = sprintf(
+                                'at %s(%s): %s%s%s(%s)',
+                                $trace['file'] ?? 'unknown',
+                                $trace['line'] ?? 0,
+                                $trace['class'],
+                                $trace['type'],
+                                $trace['function'],
+                                json_encode($trace['args'])
+                            );
+                        }
+                    }
+
+                    $content[] = $ej;
+                }
+            } catch (\Exception $e) {
+                $content = [[
+                    'message' => sprintf('Exception thrown when handling an exception (%s: %s)', get_class($e), $e->getMessage()),
+                    'trace' => explode("\n", $e->getTraceAsString())
+                ]];
+            }
+        } else {
+            $content = [[
+                'message' => sprintf('%s: %s', get_class($e), $e->getMessage()),
+                'trace' => explode("\n", $e->getTraceAsString())
+            ]];
+        }
+
+        $fe = FlattenException::create($e);
+        $response = new Response(json_encode(['errors' => $content]), $fe->getStatusCode(), array_merge(
+            ['Content-Type' => 'application/json'],
+            $fe->getHeaders()
+        ));
+
+        $response->exception = $e;
+        return $response;
     }
 }

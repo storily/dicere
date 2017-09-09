@@ -28,7 +28,7 @@ class ItemsQuery extends Query
     public function resolve($root, $args)
     {
         if (isset($args['id'])) {
-            return Item::where('id' , $args['id'])->get();
+            return Item::where('id', $args['id'])->get();
         } else {
             return Item::all();
         }

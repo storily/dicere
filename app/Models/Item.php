@@ -15,6 +15,10 @@ class Item extends Model
         'metadata',
     ];
 
+    protected $casts = [
+        'metadata' => 'array',
+    ];
+
     public function dataset()
     {
         return $this->belongsTo(Dataset::class);

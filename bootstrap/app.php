@@ -9,8 +9,12 @@ try {
 }
 
 // Handle DATABASE_URL and REDIS_URL variables
-if (!getenv('KEY_DATABASE')) putenv('KEY_DATABASE=DATABASE_URL');
-if (!getenv('KEY_REDIS')) putenv('KEY_REDIS=REDIS_URL');
+if (!getenv('KEY_DATABASE')) {
+    putenv('KEY_DATABASE=DATABASE_URL');
+}
+if (!getenv('KEY_REDIS')) {
+    putenv('KEY_REDIS=REDIS_URL');
+}
 new ItsDamien\Heroku\Config\Parse();
 
 /*
