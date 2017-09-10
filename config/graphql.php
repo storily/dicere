@@ -116,7 +116,9 @@ return [
                 'tags' => App\GraphQL\Query\TagsQuery::class,
             ],
             'mutation' => [
-
+                // TODO add auth
+                'create_tag' => App\GraphQL\Mutation\CreateTagMutation::class,
+                'update_tag' => App\GraphQL\Mutation\UpdateTagMutation::class,
             ]
         ]
     ],
