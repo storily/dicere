@@ -2,10 +2,10 @@
 
 namespace App\GraphQL\Query;
 
-use GraphQL;
-use GraphQL\Type\Definition\Type;
-use Folklore\GraphQL\Support\Query;
+use App\GraphQL\Support\Type;
 use App\Models\Tag;
+use Folklore\GraphQL\Support\Query;
+use GraphQL;
 
 class TagsQuery extends Query
 {

@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Type;
 
-use GraphQL\Type\Definition\Type;
+use App\GraphQL\Support\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
 
 class MetadataType extends GraphQLType

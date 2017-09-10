@@ -2,10 +2,10 @@
 
 namespace App\GraphQL\Type;
 
-use GraphQL;
-use GraphQL\Type\Definition\Type;
-use Folklore\GraphQL\Support\Type as GraphQLType;
+use App\GraphQL\Support\Type;
 use App\Models\Tag;
+use Folklore\GraphQL\Support\Type as GraphQLType;
+use GraphQL;
 
 class TagType extends GraphQLType
 {
@@ -20,6 +20,14 @@ class TagType extends GraphQLType
             'id' => [
                 'type' => Type::nonNull(Type::id()),
                 'description' => 'The id of the tag'
+            ],
+            'created' => [
+                'type' => Type::nonNull(Type::timestamp()),
+                'description' => "When the tag was created",
+            ],
+            'updated' => [
+                'type' => Type::nonNull(Type::timestamp()),
+                'description' => "When the tag was last updated",
             ],
             'name' => [
                 'type' => Type::nonNull(Type::string()),

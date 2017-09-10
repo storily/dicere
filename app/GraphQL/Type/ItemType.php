@@ -2,13 +2,16 @@
 
 namespace App\GraphQL\Type;
 
-use GraphQL;
-use GraphQL\Type\Definition\Type;
-use Folklore\GraphQL\Support\Type as GraphQLType;
 use App\Models\Item;
+use App\GraphQL\Support\Metadata;
+use App\GraphQL\Support\Type;
+use Folklore\GraphQL\Support\Type as GraphQLType;
+use GraphQL;
 
 class ItemType extends GraphQLType
 {
+    use Metadata;
+
     protected $attributes = [
         'name' => 'Item',
         'description' => 'An item'
@@ -21,20 +24,19 @@ class ItemType extends GraphQLType
                 'type' => Type::nonNull(Type::id()),
                 'description' => 'The id of the item'
             ],
+            'created' => [
+                'type' => Type::nonNull(Type::timestamp()),
+                'description' => "When the item was created",
+            ],
+            'updated' => [
+                'type' => Type::nonNull(Type::timestamp()),
+                'description' => "When the item was last updated",
+            ],
             'text' => [
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'The full text of the item'
             ],
-            'metadata' => [
-                'type' => Type::nonNull(Type::listOf(GraphQL::type('Metadata'))),
-                'description' => 'An array of metadata key-value pairs',
-                'args' => [
-                    'key' => [
-                        'type' => Type::string(),
-                        'description' => 'Search metadata by key'
-                    ]
-                ]
-            ],
+            'metadata' => $this->metadataField(),
             'dataset' => [
                 'type' => Type::nonNull(GraphQL::type('Dataset')),
                 'description' => 'The Dataset this Item belongs to'
@@ -44,29 +46,6 @@ class ItemType extends GraphQLType
                 'description' => 'The Tags on this Item'
             ],
         ];
-    }
-
-    public function resolveMetadataField(Item $item, $args)
-    {
-        $meta = $item->metadata ?? null;
-        if (!is_array($meta)) {
-            return [];
-        }
-
-        if (!empty($args['key'])) {
-            if (isset($meta[$args['key']])) {
-                return [['key' => $args['key'], 'value' => $meta[$args['key']]]];
-            } else {
-                return [];
-            }
-        }
-
-        $data = [];
-        foreach ($meta as $key => $value) {
-            $data[] = ['key' => $key, 'value' => $value];
-        }
-
-        return $data;
     }
 
     public function resolveTagsField(Item $item)
