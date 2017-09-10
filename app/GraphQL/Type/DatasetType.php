@@ -5,13 +5,13 @@ namespace App\GraphQL\Type;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
-use App\Models\Item;
+use App\Models\Dataset;
 
-class ItemType extends GraphQLType
+class DatasetType extends GraphQLType
 {
     protected $attributes = [
-        'name' => 'Item',
-        'description' => 'An item'
+        'name' => 'Dataset',
+        'description' => 'A Dataset is a collection of Items that form a logical or historical group. A Dataset may have all been imported at the same time, or come from the same source, etc.'
     ];
 
     public function fields()
@@ -19,11 +19,11 @@ class ItemType extends GraphQLType
         return [
             'id' => [
                 'type' => Type::nonNull(Type::id()),
-                'description' => 'The id of the item'
+                'description' => 'The id of the dataset'
             ],
-            'text' => [
+            'name' => [
                 'type' => Type::nonNull(Type::string()),
-                'description' => 'The full text of the item'
+                'description' => 'The name of the dataset'
             ],
             'metadata' => [
                 'type' => Type::nonNull(Type::listOf(GraphQL::type('Metadata'))),
@@ -35,16 +35,16 @@ class ItemType extends GraphQLType
                     ]
                 ]
             ],
-            'dataset' => [
-                'type' => Type::nonNull(GraphQL::type('Dataset')),
-                'description' => 'The Dataset this Item belongs to'
+            'items' => [
+                'type' => Type::nonNull(Type::listOf(GraphQL::type('Item'))),
+                'description' => 'Items that belong to this Dataset'
             ],
         ];
     }
 
-    public function resolveMetadataField(Item $item, $args)
+    public function resolveMetadataField(Dataset $set, $args)
     {
-        $meta = $item->metadata ?? null;
+        $meta = $set->metadata ?? null;
         if (!is_array($meta)) {
             return [];
         }
@@ -63,5 +63,9 @@ class ItemType extends GraphQLType
         }
 
         return $data;
+    }
+
+    public function resolveItemsField(Dataset $set) {
+        return $set->items()->get();
     }
 }

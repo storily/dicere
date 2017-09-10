@@ -112,6 +112,7 @@ return [
         'default' => [
             'query' => [
                 'items' => App\GraphQL\Query\ItemsQuery::class,
+                'datasets' => App\GraphQL\Query\DatasetsQuery::class,
             ],
             'mutation' => [
 
@@ -136,6 +137,7 @@ return [
      * ]
      */
     'types' => [
+        App\GraphQL\Type\DatasetType::class,
         App\GraphQL\Type\ItemType::class,
         App\GraphQL\Type\MetadataType::class,
     ],
