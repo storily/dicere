@@ -111,8 +111,9 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
-                'items' => App\GraphQL\Query\ItemsQuery::class,
                 'datasets' => App\GraphQL\Query\DatasetsQuery::class,
+                'items' => App\GraphQL\Query\ItemsQuery::class,
+                'tags' => App\GraphQL\Query\TagsQuery::class,
             ],
             'mutation' => [
 
@@ -140,6 +141,7 @@ return [
         App\GraphQL\Type\DatasetType::class,
         App\GraphQL\Type\ItemType::class,
         App\GraphQL\Type\MetadataType::class,
+        App\GraphQL\Type\TagType::class,
     ],
 
     /*

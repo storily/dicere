@@ -39,6 +39,10 @@ class ItemType extends GraphQLType
                 'type' => Type::nonNull(GraphQL::type('Dataset')),
                 'description' => 'The Dataset this Item belongs to'
             ],
+            'tags' => [
+                'type' => Type::nonNull(Type::listOf(GraphQL::type('Tag'))),
+                'description' => 'The Tags on this Item'
+            ],
         ];
     }
 
@@ -63,5 +67,10 @@ class ItemType extends GraphQLType
         }
 
         return $data;
+    }
+
+    public function resolveTagsField(Item $item)
+    {
+        return $item->tags()->get();
     }
 }

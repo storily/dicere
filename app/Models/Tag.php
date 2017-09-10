@@ -3,18 +3,28 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Tag extends Model
 {
     protected $fillable = [
         'name',
+        'description',
         'created',
         'updated',
     ];
 
-    public function item()
+    public function items()
     {
-        return $this->HasMany(Item::class);
+        return $this->belongsToMany(Item::class);
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Tag::class, 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Tag::class, 'parent_id');
     }
 }
