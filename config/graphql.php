@@ -116,7 +116,8 @@ return [
                 'tags' => App\GraphQL\Query\TagsQuery::class,
             ],
             'mutation' => [
-                // TODO add auth
+                'create_dataset' => App\GraphQL\Mutation\CreateDatasetMutation::class,
+
                 'create_tag' => App\GraphQL\Mutation\CreateTagMutation::class,
                 'delete_tag' => App\GraphQL\Mutation\DeleteTagMutation::class,
                 'update_tag' => App\GraphQL\Mutation\UpdateTagMutation::class,
