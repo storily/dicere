@@ -3,15 +3,15 @@
 namespace App\GraphQL\Mutation;
 
 use App\GraphQL\Support\Type;
-use App\Models\Tag;
+use App\Models\Dataset;
 use GraphQL;
 use Folklore\GraphQL\Support\Mutation;
 
-class DeleteTagMutation extends Mutation
+class DeleteDatasetMutation extends Mutation
 {
     protected $attributes = [
-        'name' => 'delete_tag',
-        'description' => 'Delete a Tag. Return the ID of the deleted Tag if it has been deleted.'
+        'name' => 'delete_dataset',
+        'description' => 'Delete a Dataset. Return the ID of the deleted Dataset if it has been deleted.'
     ];
 
     public function type()
@@ -24,7 +24,7 @@ class DeleteTagMutation extends Mutation
         return [
             'id' => [
                 'name' => 'id',
-                'description' => 'The ID of the Tag to delete.',
+                'description' => 'The ID of the Dataset to delete.',
                 'type' => Type::nonNull(Type::id())
             ],
         ];
@@ -32,12 +32,12 @@ class DeleteTagMutation extends Mutation
 
     public function resolve($root, $args)
     {
-        $tag = Tag::find($args['id']);
-        if (!$tag) {
+        $set = Dataset::find($args['id']);
+        if (!$set) {
             return null;
         }
 
-        $tag->delete();
-        return $tag->id;
+        $set->delete();
+        return $set->id;
     }
 }

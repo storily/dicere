@@ -47,32 +47,32 @@ class UpdateTagMutation extends Mutation
 
     public function resolve($root, $args)
     {
-        $user = Tag::find($args['id']);
-        if (!$user) {
+        $tag = Tag::find($args['id']);
+        if (!$tag) {
             return null;
         }
 
         if (!empty($args['name']) && strlen($args['name']) <= 200) {
-            $user->name = $args['name'];
+            $tag->name = $args['name'];
         }
 
         if (isset($args['description'])) {
-            $user->description = $args['description'] ?: null;
+            $tag->description = $args['description'] ?: null;
         }
 
         if (!empty($args['parent_id'])) {
             $pid = $args['parent_id'];
             if ($pid < 1) {
-                $user->parent()->dissociate();
+                $tag->parent()->dissociate();
             } else {
                 $parent = Tag::find($pid);
                 if ($parent) {
-                    $user->parent()->associate($parent);
+                    $tag->parent()->associate($parent);
                 }
             }
         }
 
-        $user->save();
-        return $user;
+        $tag->save();
+        return $tag;
     }
 }

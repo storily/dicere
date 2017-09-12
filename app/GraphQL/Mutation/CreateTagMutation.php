@@ -42,16 +42,16 @@ class CreateTagMutation extends Mutation
 
     public function resolve($root, $args)
     {
-        $user = new Tag;
+        $tag = new Tag;
 
         if (strlen($args['name']) > 200) {
             throw new InvalidArgumentException('name cannot be longer than 200 characters.');
         }
 
-        $user->name = $args['name'];
+        $tag->name = $args['name'];
 
         if (!empty($args['description'])) {
-            $user->description = $args['description'];
+            $tag->description = $args['description'];
         }
 
         if (!empty($args['parent_id'])) {
@@ -61,14 +61,14 @@ class CreateTagMutation extends Mutation
             } else {
                 $parent = Tag::find($pid);
                 if ($parent) {
-                    $user->parent()->associate($parent);
+                    $tag->parent()->associate($parent);
                 } else {
                     throw new InvalidArgumentException('parent_id does not refer to an existing tag.');
                 }
             }
         }
 
-        $user->save();
-        return $user;
+        $tag->save();
+        return $tag;
     }
 }
