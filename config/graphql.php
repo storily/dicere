@@ -113,6 +113,7 @@ return [
             'query' => [
                 'datasets' => App\GraphQL\Query\DatasetsQuery::class,
                 'items' => App\GraphQL\Query\ItemsQuery::class,
+                'search' => App\GraphQL\Query\SearchQuery::class,
                 'tags' => App\GraphQL\Query\TagsQuery::class,
             ],
             'mutation' => [
@@ -147,6 +148,8 @@ return [
         App\GraphQL\Type\DatasetType::class,
         App\GraphQL\Type\ItemType::class,
         App\GraphQL\Type\MetadataType::class,
+        App\GraphQL\Type\SearchType::class,
+        App\GraphQL\Type\SearchResultType::class,
         App\GraphQL\Type\TagType::class,
     ],
 
