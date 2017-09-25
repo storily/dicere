@@ -29,6 +29,6 @@ class RandomQuery extends Query
     {
         if (empty($args['limit']) || $args['limit'] < 1) $args['limit'] = 1;
         if ($args['limit'] > 100) $args['limit'] = 100;
-        return Item::all()->random($args['limit']);
+        return Item::inRandomOrder()->limit($args['limit'])->get();
     }
 }
