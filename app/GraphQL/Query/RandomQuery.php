@@ -27,8 +27,12 @@ class RandomQuery extends Query
 
     public function resolve($root, $args)
     {
-        if (empty($args['limit']) || $args['limit'] < 1) $args['limit'] = 1;
-        if ($args['limit'] > 100) $args['limit'] = 100;
+        if (empty($args['limit']) || $args['limit'] < 1) {
+            $args['limit'] = 1;
+        }
+        if ($args['limit'] > 100) {
+            $args['limit'] = 100;
+        }
         return Item::inRandomOrder()->limit($args['limit'])->get();
     }
 }

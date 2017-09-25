@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Models;
+
 use AlgoliaSearch\Client;
-use Unirest\Request;
 
 class Search
 {
@@ -16,7 +16,9 @@ class Search
             'advancedSyntax' => true,
         ]);
 
-        if (empty($results['hits'])) return [];
+        if (empty($results['hits'])) {
+            return [];
+        }
 
         return array_map(function ($hit) {
             return [
@@ -28,10 +30,18 @@ class Search
 
     public static function normalise(string $query)
     {
-        return preg_replace('/\s+/', ' ',
-            str_replace(WS, ' ',
-                str_replace(SINGLE_QUOTE, '\'',
-                    str_replace(DOUBLE_QUOTE, '"',
+        return preg_replace(
+            '/\s+/',
+            ' ',
+            str_replace(
+                WS,
+                ' ',
+                str_replace(
+                    SINGLE_QUOTE,
+                    '\'',
+                    str_replace(
+                        DOUBLE_QUOTE,
+                        '"',
                         str_replace(DASH, '-', $query)
                     )
                 )
@@ -46,7 +56,9 @@ class Search
 
         Item::with(['dataset', 'tags', 'tags.parent'])->chunk(100, function ($items) use ($fn, &$n) {
             $n += count($items);
-            if ($fn) $fn(count($items, $n));
+            if ($fn) {
+                $fn(count($items, $n));
+            }
             static::algolia()->addObjects($items->map(function ($item) {
                 return $item->indexObject();
             })->all());
@@ -54,7 +66,9 @@ class Search
 
         Item::onlyTrashed()->with(['dataset', 'tags', 'tags.parent'])->chunk(100, function ($items) use ($fn, &$d) {
             $d += count($items);
-            if ($fn) $fn(count($items, $d));
+            if ($fn) {
+                $fn(count($items, $d));
+            }
             static::algolia()->deleteObjects($items->map(function ($item) {
                 return $item->id;
             })->all());
@@ -67,7 +81,9 @@ class Search
     private static $index = null;
     public static function algolia()
     {
-        if (static::$index !== null) return static::$index;
+        if (static::$index !== null) {
+            return static::$index;
+        }
 
         static::$algolia = new Client(
             config('app.algolia.app_id'),

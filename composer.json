@@ -14,8 +14,7 @@
         "fideloper/proxy": "^3.3.4",
         "folklore/graphql": "^1.0.25",
         "itsdamien/laravel-heroku-config-parser": "^1.1",
-        "laravel/lumen-framework": "^5.5.0",
-        "mashape/unirest-php": "^3.0.4"
+        "laravel/lumen-framework": "^5.5.0"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.7.1",

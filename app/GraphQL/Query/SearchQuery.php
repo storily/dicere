@@ -28,10 +28,12 @@ class SearchQuery extends Query
 
     public function resolve($root, $args)
     {
-        if (empty($args['limit']) || $args['limit'] < 1)
+        if (empty($args['limit']) || $args['limit'] < 1) {
             return Search::search($args['query']);
-        else {
-            if ($args['limit'] > 100) $args['limit'] = 100;
+        } else {
+            if ($args['limit'] > 100) {
+                $args['limit'] = 100;
+            }
             return Search::search($args['query'], $args['limit']);
         }
     }
