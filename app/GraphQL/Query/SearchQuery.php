@@ -15,19 +15,25 @@ class SearchQuery extends Query
 
     public function type()
     {
-        return Type::nonNull(Type::listOf(GraphQL::type('Item')));
-        // return Type::nonNull(GraphQL::type('Search'));
+        return Type::nonNull(Type::listOf(GraphQL::type('SearchResult')));
     }
 
     public function args()
     {
         return [
             'query' => ['name' => 'query', 'type' => Type::nonNull(Type::string())],
+            'limit' => ['name' => 'limit', 'type' => Type::int()],
         ];
     }
 
     public function resolve($root, $args)
     {
-        return (new Search($args['query']))->perform();
+
+        if (empty($args['limit']) || $args['limit'] < 1)
+            return Search::search($args['query']);
+        else {
+            if ($args['limit'] > 100) $args['limit'] = 100;
+            return Search::search($args['query'], $args['limit']);
+        }
     }
 }

@@ -27,4 +27,11 @@ class Tag extends Model
     {
         return $this->hasMany(Tag::class, 'parent_id');
     }
+
+    public function withParents() {
+        if (!$this->parent)
+            return [$this];
+        else
+            return [$this] + $this->parent->withParents();
+    }
 }

@@ -148,7 +148,6 @@ return [
         App\GraphQL\Type\DatasetType::class,
         App\GraphQL\Type\ItemType::class,
         App\GraphQL\Type\MetadataType::class,
-        App\GraphQL\Type\SearchType::class,
         App\GraphQL\Type\SearchResultType::class,
         App\GraphQL\Type\TagType::class,
     ],

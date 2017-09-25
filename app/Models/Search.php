@@ -1,86 +1,69 @@
 <?php
 
 namespace App\Models;
+use AlgoliaSearch\Client;
 use Unirest\Request;
 
 class Search
 {
-    private $ast = null;
-    private $normal = null;
-    private $query = null;
-
-    public function __construct(string $query)
+    public static function search(string $query, int $limit = 20)
     {
-        $this->query = $query;
+        $query = static::normalise($query);
+        $results = static::algolia()->search($query, [
+            'hitsPerPage' => $limit,
+            'attributesToRetrieve' => [],
+            'getRankingInfo' => true
+        ]);
+
+        if (empty($results['hits'])) return [];
+
+        return array_map(function ($hit) {
+            return [
+                'item' => Item::find($hit['objectID']),
+                'score' => $hit['_rankingInfo']['userScore'],
+            ];
+        }, $results['hits']);
     }
 
-    private function parse()
+    public static function normalise(string $query)
     {
-        if ($this->ast) return $this;
-
         Request::jsonOpts(true);
-        $resp = Request::post(config('app.legare.host'), null, $this->query)->body;
+        $resp = Request::post(config('app.legare.host'), null, $query)->body;
         if ($resp['error']) {
             throw new \Exception($resp['reason'] . "\n\n" . implode("\n", $resp['details']));
         }
 
-        $this->normal = $resp['normalised'];
-        $this->ast = $resp['parsed'];
-        return $this;
+        return $resp['normalised'];
     }
 
-    private static function where ($expression, $level = 0, $mult = 1)
+    public static function reindex()
     {
-        $where = Item::select('items.*')->distinct()
-            ->join('item_tag', 'items.id', '=', 'item_tag.item_id')
-            ->join('tags', 'tags.id', '=', 'item_tag.tag_id');
+        Item::with(['dataset', 'tags', 'tags.parent'])->chunk(100, function ($items) {
+            static::algolia()->addObjects($items->map(function ($item) {
+                return $item->indexObject();
+            })->all());
+        });
 
-        $args = [];
-        $logic = 'where';
-        $import = 10;
-        foreach ($expression as $i => $term) {
-            $import -= 1; if ($import < 0) $import = 1;
-            $type = array_keys($term)[0];
-            $value = array_values($term)[0];
-            $multiplier = $import * $mult / (pow(10, $level));
-
-            switch ($type) {
-                case 'Word':
-                    $where = $where->$logic('tags.name', 'LIKE', "%$value%");
-                    break;
-                case 'Id':
-                    $where = $where->$logic('items.id', '=', $value);
-                    break;
-                case 'Pair': // TODO
-                    $where = $where->$logic('tags.name', '=', $value);
-                    break;
-                case 'Quote':
-                    $where = $where->$logic('items.text', 'LIKE', "%$value%");
-                    break;
-                // case 'Group':
-                //     $
-            }
-
-            switch ($type) {
-                case 'LogicOr':
-                    $import += 1;
-                    $logic = 'orWhere';
-                    continue 2;
-                case 'LogicNot':
-                    $import += 1;
-                    $not = 'NOT ';
-                    continue 2;
-                default:
-                    $logic = 'where';
-                    $not = '';
-            }
-        }
-
-        return $where->get();
+        Item::onlyTrashed()->with(['dataset', 'tags', 'tags.parent'])->chunk(100, function ($items) {
+            static::algolia()->deleteObjects($items->map(function ($item) {
+                return $item->id;
+            })->all());
+        });
     }
 
-    public function perform()
+    private static $algolia = null;
+    private static $index = null;
+    public static function algolia()
     {
-        return static::where($this->parse()->ast);
+        if (static::$index !== null) return static::$index;
+
+        static::$algolia = new Client(
+            config('app.algolia.app_id'),
+            config('app.algolia.api_key')
+        );
+
+        return (static::$index = static::$algolia->initIndex(
+            config('app.algolia.index')
+        ));
     }
 }
