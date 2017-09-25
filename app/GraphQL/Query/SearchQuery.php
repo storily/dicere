@@ -10,7 +10,8 @@ use GraphQL;
 class SearchQuery extends Query
 {
     protected $attributes = [
-        'name' => 'search'
+        'name' => 'search',
+        'description' => 'Search by Algolia',
     ];
 
     public function type()
