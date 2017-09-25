@@ -12,6 +12,6 @@ return [
     ],
 
     'reindex' => [
-        'interval' => 10,
+        'interval' => env('REINDEX', 10),
     ]
 ];

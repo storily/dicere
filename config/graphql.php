@@ -113,6 +113,7 @@ return [
             'query' => [
                 'datasets' => App\GraphQL\Query\DatasetsQuery::class,
                 'items' => App\GraphQL\Query\ItemsQuery::class,
+                'random' => App\GraphQL\Query\RandomQuery::class,
                 'search' => App\GraphQL\Query\SearchQuery::class,
                 'tags' => App\GraphQL\Query\TagsQuery::class,
             ],
