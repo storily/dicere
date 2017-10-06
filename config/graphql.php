@@ -117,16 +117,18 @@ return [
                 'search' => App\GraphQL\Query\SearchQuery::class,
                 'tags' => App\GraphQL\Query\TagsQuery::class,
             ],
-            'mutation' => [
-                'create_dataset' => App\GraphQL\Mutation\CreateDatasetMutation::class,
-                'delete_dataset' => App\GraphQL\Mutation\DeleteDatasetMutation::class,
-                'update_dataset' => App\GraphQL\Mutation\UpdateDatasetMutation::class,
-
-                'create_tag' => App\GraphQL\Mutation\CreateTagMutation::class,
-                'delete_tag' => App\GraphQL\Mutation\DeleteTagMutation::class,
-                'update_tag' => App\GraphQL\Mutation\UpdateTagMutation::class,
-            ]
-        ]
+        ],
+        // 'secret' => [
+        //     'mutation' => [
+        //         'create_dataset' => App\GraphQL\Mutation\CreateDatasetMutation::class,
+        //         'delete_dataset' => App\GraphQL\Mutation\DeleteDatasetMutation::class,
+        //         'update_dataset' => App\GraphQL\Mutation\UpdateDatasetMutation::class,
+        //
+        //         'create_tag' => App\GraphQL\Mutation\CreateTagMutation::class,
+        //         'delete_tag' => App\GraphQL\Mutation\DeleteTagMutation::class,
+        //         'update_tag' => App\GraphQL\Mutation\UpdateTagMutation::class,
+        //     ]
+        // ]
     ],
 
     /*
