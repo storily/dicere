@@ -5,10 +5,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Dicere (Cogitare)</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet">
 
         <!-- Styles -->
         <style>
@@ -49,6 +49,11 @@
                 font-size: 84px;
             }
 
+            p {
+                color: #333;
+                font-weight: 600;
+            }
+
             .links > a {
                 color: #636b6f;
                 padding: 0 25px;
@@ -72,22 +77,21 @@
                         <a href="{{ url('/home') }}">Home</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
                     @endauth
                 </div>
             @endif
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Dicere
                 </div>
 
+                <p>Admin services and API for <a href="https://cogitare.nz">Cogitare</a>.</p>
+
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a href="/docs">API Docs</a>
+                    <a href="/graphiql">API Explorer</a>
+                    <a href="https://github.com/storily/dicere">Github</a>
                 </div>
             </div>
         </div>
