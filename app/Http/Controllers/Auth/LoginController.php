@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\LoginToken;
+use App\Models\User;
+use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -35,5 +39,20 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function login(Request $request)
+    {
+        $this->validate($request, ['email' => 'required|email|exists:users']);
+        $user = User::where('email', $request->input('email'))->first();
+        $user->loginToken()->create()->email();
+        return 'Login email sent. Go check your email.';
+    }
+
+    public function withToken($token)
+    {
+        $token = LoginToken::check($token);
+        Auth::login($token->delete()->user);
+        return redirect($this->redirectTo);
     }
 }

@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Models\Invite;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -50,7 +51,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'invite' => 'required|string|min:4|exists:invites,code',
         ]);
     }
 
@@ -62,10 +63,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        Invite::where('code', $data['invite'])->first()->delete();
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'invite_code' => $data['invite'],
         ]);
     }
 }

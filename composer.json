@@ -11,7 +11,8 @@
         "guzzlehttp/guzzle": "^6.3",
         "itsdamien/laravel-heroku-config-parser": "^1.1",
         "laravel/framework": "^5.5.0",
-        "laravel/tinker": "^1.0.0"
+        "laravel/tinker": "^1.0.0",
+        "predis/predis": "^1.1"
     },
     "require-dev": {
         "filp/whoops": "^2.1.10",

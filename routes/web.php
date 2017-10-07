@@ -14,3 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('login/token/{token}', [
+    'as' => 'login.token',
+    'uses' => 'Auth\LoginController@withToken'
+]);
+
+Route::get('/home', 'HomeController@index')->name('home');
