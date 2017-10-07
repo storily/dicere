@@ -1,2 +1,2 @@
 #!/bin/sh
-tail -f storage/logs/laravel.log
+exec tail -f storage/logs/laravel.log
