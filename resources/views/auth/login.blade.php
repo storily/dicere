@@ -7,11 +7,11 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h2>Login</h2>
-                    <small>
+                    <p>
                         To login, provide your email.
                         We'll send you a magic link in an email that you'll have
                         to click to complete the login.
-                    </small>
+                    </p>
                 </div>
 
                 <div class="panel-body">

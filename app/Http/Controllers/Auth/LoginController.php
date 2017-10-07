@@ -46,7 +46,7 @@ class LoginController extends Controller
         $this->validate($request, ['email' => 'required|email|exists:users']);
         $user = User::where('email', $request->input('email'))->first();
         $user->loginToken()->create()->email();
-        return 'Login email sent. Go check your email.';
+        return view('auth.magic', ['email' => $user->email]);
     }
 
     public function withToken($token)
