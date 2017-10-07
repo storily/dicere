@@ -89,12 +89,12 @@
 
             h2::before {
                 content: '›';
-                margin-right: 1rem;
+                margin-right: 1.2rem;
             }
 
             h3::before {
                 content: '»';
-                margin-right: 1rem;
+                margin-right: 1.2rem;
             }
 
             h2 a, h3 a {
