@@ -4,8 +4,9 @@
 
     <file>.</file>
 
-    <exclude-pattern>vendor</exclude-pattern>
+    <exclude-pattern>bootstrap/cache</exclude-pattern>
     <exclude-pattern>storage</exclude-pattern>
+    <exclude-pattern>vendor</exclude-pattern>
 
     <arg name="extensions" value="php" />
 
