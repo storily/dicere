@@ -11,4 +11,4 @@ do {
         echo '.';
     });
     echo " DONE, $n upserted, $d deleted. ($i)\n";
-} while (!sleep(config('app.reindex.interval')));
+} while (!sleep(config('algolia.reindex.interval')));

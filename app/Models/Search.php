@@ -86,12 +86,12 @@ class Search
         }
 
         static::$algolia = new Client(
-            config('app.algolia.app_id'),
-            config('app.algolia.api_key')
+            config('algolia.app_id'),
+            config('algolia.api_key')
         );
 
         return (static::$index = static::$algolia->initIndex(
-            config('app.algolia.index')
+            config('algolia.index')
         ));
     }
 }
