@@ -83,18 +83,19 @@
             }
 
             h2, h3 {
-                margin-left: -2rem;
                 font-weight: 600;
+                margin-left: -1.5rem;
+                margin-top: 2em;
             }
 
             h2::before {
                 content: '›';
-                margin-right: 1.2rem;
+                margin-right: .7rem;
             }
 
             h3::before {
                 content: '»';
-                margin-right: 1.2rem;
+                margin-right: .7rem;
             }
 
             h2 a, h3 a {
@@ -102,14 +103,21 @@
                 text-decoration: none;
             }
 
-            p a {
+            p a, table a {
                 color: inherit;
+            }
+
+            code {
+                font-size: 0.75em;
+            }
+
+            a[href^="#"] {
+                text-decoration-style: dotted;
             }
 
             h2 {
                 font-size: 1.5em;
                 font-variant: small-caps;
-                margin-top: 2em;
                 text-transform: lowercase;
             }
 
@@ -119,6 +127,27 @@
 
             .cogitare, a.cogitare {
                 color: #00D1B2;
+            }
+
+            table {
+                border-collapse: collapse;
+                text-align: left;
+                width: 100%;
+            }
+
+            td, th {
+                padding: 0.2em 1em;
+                border: 1px solid black;
+            }
+
+            tbody th {
+                font-family: Raleway, sans-serif;
+                font-variant: small-caps;
+                font-weight: 600;
+            }
+
+            thead {
+                border-bottom-style: double;
             }
         </style>
     </head>
