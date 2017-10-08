@@ -27,4 +27,14 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Invite::class, 'invite_code', 'code');
     }
+
+    public function mainDataset()
+    {
+        return $this->belongsTo(Dataset::class, 'main_dataset_id');
+    }
+
+    public function datasets()
+    {
+        return $this->hasMany(Dataset::class, 'creator_id');
+    }
 }

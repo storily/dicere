@@ -19,4 +19,9 @@ class Dataset extends Model
     {
         return $this->HasMany(Item::class);
     }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'creator_id');
+    }
 }
