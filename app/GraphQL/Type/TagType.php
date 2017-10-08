@@ -45,6 +45,10 @@ class TagType extends GraphQLType
                 'type' => GraphQL::type('Tag'),
                 'description' => 'This tag’s parent'
             ],
+            'children' => [
+                'type' => Type::nonNull(Type::listOf(GraphQL::type('Tag'))),
+                'description' => 'This tag’s children'
+            ],
         ];
     }
 
