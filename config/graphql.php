@@ -53,7 +53,9 @@ return [
     /*
      * Any middleware for the 'graphql' route group
      */
-    'middleware' => [],
+    'middleware' => [
+        \Barryvdh\Cors\HandleCors::class,
+    ],
 
     /*
      * Any headers that will be added to the response returned by the default controller
