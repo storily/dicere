@@ -7,6 +7,7 @@
     <a href="#data">Data</a>
     <a href="#bots">For bots</a>
     <a href="#auth">Access</a>
+    <a href="#auth">License</a>
 </div>
 
 <p>
@@ -330,5 +331,68 @@
 </ul>
 
 <h2 id="bots"><a href="#bots">For bots</a></h2>
+
+<p>
+    Bots may of course used the full interface and operate on the data as they
+    see fit, but as a general guideline, the recommended access goes like this:
+
+    <ol>
+        <li>If the user provides no hints or search, go to 4.</li>
+        <li>Perform a search with a large limit, but retrieving only
+            <strong>text</strong>.</li>
+        <li>Pick at random within that.</li>
+        <li>If nothing is returned, query the <code>random</code> endpoint.</li>
+    </ol>
+</p>
+
+<p>
+    If the bot has a particular context or is for a particular event, you may
+    want to filter the results further. In this case, you can return more fields
+    from search results and perform filtering client-side. For search, you can
+    try to include additional words in the query to filter server-side, too.
+</p>
+
+<p>
+    Often, it is better to return <em>something</em> even if nothing matches.
+    Consider what set of tags or datasets you should query for a “safe” random
+    pick in your context.
+</p>
+
 <h2 id="auth"><a href="#auth">Access</a></h2>
+
+<p>
+    All data presented in the API is public and read-only.
+</p>
+
+<p>
+    There is no authentication nor limits at the moment. This may change without
+    notice if the service is heavily used and that reduces the quality of the
+    access for everyone.
+</p>
+
+<p>
+    If authentication is enabled, it would likely be a static token that would
+    need to be provided as an <code>Authorization</code> header, obtainable on
+    request and granted per application. A rate-limited anonymous access would
+    still be provided. This information is provided as a non-binding indication
+    only, so that you can design your solution with this eventuality in mind.
+</p>
+
+<h2 id="license"><a href="#license">License</a></h2>
+
+<p>
+    The data provided, while free to use, is <em>not</em> in the public domain.
+    Each dataset may provide its own license, which will be provided in its
+    metadata. By default, items are licensed for use under the
+    <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</a>
+    but remain the copyright of their authors.
+</p>
+
+<p>
+    <strong>Dicere</strong> and <strong class="cogitare">Cogitare</strong> are
+    themselves open-sourced under the
+    <a href="https://spdx.org/licenses/Apache-2.0.txt">Apache 2.0</a>
+    license. You can find them both on Github under the
+    <a href="https://github.com/storily">Storily</a> organisation.
+</p>
 @endsection

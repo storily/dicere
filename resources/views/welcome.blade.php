@@ -9,5 +9,6 @@
     <a href="/docs">Docs</a>
     <a href="/graphiql">API</a>
     <a href="https://github.com/storily/dicere">Github</a>
+    <a href="/docs#license">License</a>
 </div>
 @endsection
