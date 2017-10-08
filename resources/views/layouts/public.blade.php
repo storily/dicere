@@ -23,7 +23,6 @@
 
             .full-height {
                 min-height: 100vh;
-                padding-bottom: 5rem;
             }
 
             .flex-center {
@@ -53,10 +52,19 @@
                 max-width: 30em;
             }
 
+            .content :last-child {
+                margin-bottom: 5rem;
+            }
+
             h1.title {
                 color: #636b6f;
                 font-weight: 100;
                 font-size: 84px;
+                text-align: center;
+            }
+
+            .subtitle {
+                font-size: 1.3rem;
                 text-align: center;
             }
 

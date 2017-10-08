@@ -3,7 +3,10 @@
 @section('content')
 <h1 class="title m-b-md">Dicere</h1>
 
-<p>Admin services and API for <a href="https://cogitare.nz">Cogitare</a>.</p>
+<p class="subtitle">
+    Admin services and API for
+    <a href="https://cogitare.nz" class="cogitare">Cogitare</a>.
+</p>
 
 <div class="links">
     <a href="/docs">Docs</a>
