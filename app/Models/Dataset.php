@@ -8,6 +8,7 @@ class Dataset extends Model
 {
     protected $fillable = [
         'name',
+        'description',
         'created',
         'updated',
         'imported',

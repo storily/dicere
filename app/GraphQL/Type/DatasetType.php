@@ -40,6 +40,10 @@ class DatasetType extends GraphQLType
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'The name of the dataset'
             ],
+            'description' => [
+                'type' => Type::string(),
+                'description' => 'An extended description'
+            ],
             'metadata' => $this->metadataField(),
             'items' => [
                 'type' => Type::nonNull(Type::listOf(GraphQL::type('Item'))),
