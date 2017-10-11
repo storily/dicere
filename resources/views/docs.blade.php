@@ -389,6 +389,12 @@
 </p>
 
 <p>
+    Whenever possible, licenses are expressed in
+    <a href="https://spdx.org">SPDX format</a>. The special string "UNLICENSED"
+    should be taken to mean that the item or dataset is not under any license.
+</p>
+
+<p>
     <strong>Dicere</strong> and <strong class="cogitare">Cogitare</strong> are
     themselves open-sourced under the
     <a href="https://spdx.org/licenses/Apache-2.0.txt">Apache 2.0</a>
