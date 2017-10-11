@@ -15,6 +15,10 @@ class Dataset extends Model
         'metadata',
     ];
 
+    protected $casts = [
+        'metadata' => 'array',
+    ];
+
     public function items()
     {
         return $this->HasMany(Item::class);
