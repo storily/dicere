@@ -1,7 +1,5 @@
 @extends('layouts.base')
 
-@section('body-class', 'page-static')
-
 @section('content')
 <h1 class="title m-b-md">Docs</h1>
 
