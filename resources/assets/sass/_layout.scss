@@ -1,5 +1,6 @@
 .content {
-    max-width: map-get($container-max-widths, sm);
+    max-width: map-get($container-max-widths, md);
+    padding: 1em calc(#{map-get($container-max-widths, md)} / 2 - #{map-get($container-max-widths, sm)} / 2) 5em;
 
     nav {
         margin-top: 1em;
@@ -17,7 +18,7 @@ nav.navbar {
 }
 
 nav a {
-    color: $gray-700;
+    color: var(--title-colour);
     padding: 0 1rem;
     font-family: $headings-font-family;
     font-size: 0.9rem;
@@ -28,5 +29,13 @@ nav a {
 
     &.cogitare {
         color: $cogitare !important;
+    }
+
+    &.loginout {
+        color: var(--loginout-colour) !important;
+
+        &:hover {
+            color: var(--loginout-hover-colour) !important;
+        }
     }
 }

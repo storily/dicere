@@ -1,0 +1,37 @@
+#lightswitch {
+    flex-grow: 1;
+    @extend .align-self-stretch;
+}
+
+body {
+    background-image: url('../img/stars.png');
+}
+
+body.dark {
+    background-color: $gray-900;
+
+    --title-colour: $gray-300;
+    --code-bg-colour: $gray-800;
+    --link-hover-colour: lighten($link-color, 15%);
+    --loginout-colour: theme-color(success);
+    --loginout-hover-colour: lighten(theme-color(success), 15%);
+
+    nav.navbar {
+        @extend .navbar-dark;
+        @extend .bg-dark;
+    }
+
+    .content {
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+    }
+
+    .form-control, .form-control:focus {
+        @extend .bg-dark;
+        @extend .text-light;
+    }
+}
+
+code {
+    background-color: var(--code-bg-colour);
+}

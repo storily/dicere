@@ -6,3 +6,12 @@ $code-font-size: 75%;
 
 // Colour
 $cogitare: #00D1B2;
+
+// Runtime
+body {
+    --title-colour: $gray-700;
+    --code-bg-colour: $code-bg;
+    --link-hover-colour: darken($link-color, 15%);
+    --loginout-colour: theme-color(primary);
+    --loginout-hover-colour: darken(theme-color(primary), 15%);
+}

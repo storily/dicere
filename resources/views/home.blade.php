@@ -11,4 +11,6 @@
     Kia ora!
     <small>{{ Auth::user()->email }}</small>
 </h2>
+
+
 @endsection

@@ -11,6 +11,7 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         @yield('styles')
     </head>
+
     <body class="@yield('body-class')">
         <nav class="navbar">
             <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name', 'Dicere') }}</a>
@@ -28,7 +29,7 @@
             </button>
 
             <div class="collapse navbar-collapse" id="nav-menu">
-                <ul class="navbar-nav mr-auto">
+                <ul class="navbar-nav">
                     @section('nav-left')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/docs') }}">Docs</a>
@@ -44,25 +45,28 @@
                     </li>
                 </ul>
 
-                <ul class="navbar-nav ml-auto">
+                <div id="lightswitch"></div>
+                <script src="{{ asset('js/lightswitch.js') }}"></script>
+
+                <ul class="navbar-nav">
                     @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('register') }}">Register</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-primary" href="{{ route('login') }}">Login</a>
+                            <a class="nav-link loginout" href="{{ route('login') }}">Login</a>
                         </li>
                     @else
                         @yield('nav-right')
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Settings</a>
+                            <a class="nav-link" href="/admin">Admin</a>
                         </li>
 
                         <li class="nav-item">
                             <a
-                                class="nav-link"
+                                class="nav-link loginout"
                                 href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                          document.getElementById('logout-form').submit();"
