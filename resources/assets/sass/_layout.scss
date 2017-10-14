@@ -1,5 +1,5 @@
 .content {
-    @extend .col-sm-4;
+    max-width: map-get($container-max-widths, sm);
 
     nav {
         margin-top: 1em;
