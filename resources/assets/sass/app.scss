@@ -1,9 +1,18 @@
 
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url("https://fonts.googleapis.com/css?family=Raleway:100,600");
+@import url("https://fonts.googleapis.com/css?family=Crimson+Text");
 
 // Variables
+@import "~bootstrap/scss/_functions";
+@import "~bootstrap/scss/_variables";
 @import "variables";
 
 // Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "~bootstrap/scss/bootstrap";
+
+// Base styles
+@import "base";
+
+// Page styles
+@import "public";

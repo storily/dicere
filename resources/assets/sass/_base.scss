@@ -1,0 +1,71 @@
+h1 {
+    font-size: 5rem;
+    font-weight: 100;
+}
+
+h2, h3 {
+    font-weight: 600;
+    margin-left: -1.5rem;
+    margin-top: 2em;
+
+    a, a:hover, a:focus {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    &::before {
+        margin-right: .7rem;
+    }
+}
+
+h2 {
+    font-variant: small-caps;
+    text-transform: lowercase;
+
+    &::before {
+        content: '›';
+    }
+}
+
+h3::before {
+    content: '»';
+}
+
+p, ul, ol, table {
+    font-family: $font-family-serif;
+    font-size: 1.2rem;
+}
+
+p a, table a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+table {
+    border-collapse: collapse;
+    text-align: left;
+    width: 100%;
+}
+
+td, th {
+    padding: 0.2em 1em;
+    border: 1px solid black;
+}
+
+tbody th {
+    font-family: $headings-font-family;
+    font-variant: small-caps;
+    font-weight: $headings-font-weight;
+}
+
+thead {
+    border-bottom-style: double;
+}
+
+a[href^="#"] {
+    text-decoration-style: dotted;
+}
+
+.cogitare, a.cogitare {
+    color: $cogitare;
+}
