@@ -3,8 +3,8 @@
 @section('content')
 <h2>Login</h2>
 <p class="text-muted">
-    To login, provide your email.
-    We'll send you a magic link that you'll have to click to complete the login.
+    To login, provide the email you registered with. We’ll send you a “magic”
+    link that you’ll have to click to complete the login.
 </p>
 
 <form method="POST" action="{{ route('login') }}">

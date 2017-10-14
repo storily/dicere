@@ -1,69 +1,52 @@
 @extends('layouts.base')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
+<h2>Register</h2>
+<p class="text-muted">
+    You need an invite code to get in.
+</p>
 
-                <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('register') }}">
-                        {{ csrf_field() }}
+<form method="POST" action="{{ route('register') }}">
+    {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
+    <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
+        <label for="email" class="control-label">Email address</label>
+        <input
+            id="email"
+            type="email"
+            class="form-control"
+            name="email"
+            value="{{ old('email') }}"
+            required
+            autofocus
+            placeholder="name@example.com"
+        >
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+        <small class="form-text">Login is through email only, so make sure to enter it correctly!</small>
 
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('invite') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Invite Code</label>
-
-                            <div class="col-md-6">
-                                <input id="invite" type="text" class="form-control" name="invite" required>
-
-                                @if ($errors->has('invite'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('invite') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Register
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+        @if ($errors->has('email'))
+        <small class="form-text text-danger">{{ $errors->first('email') }}</small>
+        @endif
     </div>
-</div>
+
+    <div class="form-group {{ $errors->has('invite') ? 'has-error' : '' }}">
+        <label for="invite" class="control-label">Invite code</label>
+        <input
+            id="invite"
+            type="text"
+            class="form-control"
+            name="invite"
+            value="{{ old('invite') }}"
+            required
+        >
+
+        <small class="form-text">Take care: invite codes are case-sensitive and single-use.</small>
+
+        @if ($errors->has('invite'))
+        <small class="form-text text-danger">{{ $errors->first('invite') }}</small>
+        @endif
+    </div>
+
+    <button type="submit" class="btn btn-primary">Register</button>
+</form>
 @endsection
