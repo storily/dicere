@@ -1,6 +1,5 @@
 .content {
     @extend .col-sm-4;
-    font-size: 1.2rem;
 
     nav {
         margin-top: 1em;
@@ -9,6 +8,12 @@
 
         @extend .justify-content-center;
     }
+}
+
+nav.navbar {
+    @extend .navbar-expand-lg;
+    @extend .navbar-light;
+    @extend .bg-light;
 }
 
 nav a {

@@ -12,7 +12,7 @@
         @yield('styles')
     </head>
     <body class="@yield('body-class')">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar">
             <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name', 'Dicere') }}</a>
 
             <button
@@ -45,17 +45,36 @@
                 </ul>
 
                 <ul class="navbar-nav ml-auto">
-                    @section('nav-right')
-                    @auth
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin') }}">Admin</a>
-                    </li>
+                    @guest
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">Register</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-primary" href="{{ route('login') }}">Login</a>
+                        </li>
                     @else
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">Login</a>
-                    </li>
-                    @endauth
-                    @show
+                        @yield('nav-right')
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Settings</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                         document.getElementById('logout-form').submit();"
+                            >
+                                Logout
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" hidden>
+                                {{ csrf_field() }}
+                            </form>
+                        </li>
+                    @endguest
                 </ul>
             </div>
         </nav>
