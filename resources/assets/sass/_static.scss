@@ -1,38 +1,11 @@
 .page-static {
-    .full-height {
-        min-height: 100vh;
-    }
-
-    .flex-center {
-        align-items: center;
-        display: flex;
-        justify-content: center;
-    }
-
-    .position-ref {
-        position: relative;
-    }
-
-    .top-right {
-        position: absolute;
-        right: 10px;
-        top: 18px;
-    }
-
-    .top-left {
-        position: absolute;
-        left: 10px;
-        top: 18px;
-    }
-
     .content {
-        font-size: 1.2rem;
+        @extend .col-sm-4;
         margin-top: 5em;
-        max-width: 30em;
-    }
 
-    .content > :last-child {
-        margin-bottom: 5rem;
+        & > :last-child {
+            margin-bottom: 5rem;
+        }
     }
 
     h1.title {
@@ -43,29 +16,5 @@
     .subtitle {
         font-size: 1.3rem;
         text-align: center;
-    }
-
-    .content .links {
-        margin-bottom: 1em;
-        text-align: center;
-    }
-
-    .links > a {
-        color: $gray-700;
-        padding: 0 1rem;
-        font-family: $headings-font-family;
-        font-size: 0.9rem;
-        font-weight: $headings-font-weight;
-        letter-spacing: .1rem;
-        text-decoration: none;
-        text-transform: uppercase;
-
-        &.cogitare {
-            color: $cogitare;
-        }
-    }
-
-    .m-b-md {
-        margin-bottom: 30px;
     }
 }

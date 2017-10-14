@@ -1,14 +1,16 @@
-@extends('layouts.static')
+@extends('layouts.base')
+
+@section('body-class', 'page-static')
 
 @section('content')
 <h1 class="title m-b-md">Docs</h1>
 
-<div class="links">
+<nav class="nav">
     <a href="#data">Data</a>
     <a href="#bots">For bots</a>
     <a href="#auth">Access</a>
     <a href="#auth">License</a>
-</div>
+</nav>
 
 <p>
     <strong class="cogitare">Cogitare</strong> is a repository for prompts,
@@ -27,12 +29,12 @@
 </p>
 
 <h2 id="data"><a href="#data">Data</a></h2>
-<div class="links">
+<nav class="nav justify-content-center">
     <a href="#data-items">Items</a>
     <a href="#data-tags">Tags</a>
     <a href="#data-datasets">Datasets</a>
     <a href="#data-metadata">Metadata</a>
-</div>
+</nav>
 
 <p>
     <strong><a href="#data-items">Items</a></strong> contain the actual data,

@@ -1,0 +1,26 @@
+.content {
+    font-size: 1.2rem;
+
+    nav {
+        margin-top: 1em;
+        margin-bottom: 1em;
+        text-align: center;
+
+        @extend .justify-content-center;
+    }
+}
+
+nav a {
+    color: $gray-700;
+    padding: 0 1rem;
+    font-family: $headings-font-family;
+    font-size: 0.9rem;
+    font-weight: $headings-font-weight;
+    letter-spacing: .1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+
+    &.cogitare {
+        color: $cogitare !important;
+    }
+}
