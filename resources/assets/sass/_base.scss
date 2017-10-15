@@ -50,11 +50,11 @@ h3::before {
 p, ul, ol, table {
     font-family: $font-family-serif;
     font-size: 1.2rem;
-}
 
-p a, table a {
-    color: inherit;
-    text-decoration: underline;
+    a {
+        color: inherit;
+        text-decoration: underline;
+    }
 }
 
 table {
@@ -78,12 +78,34 @@ thead {
     border-bottom-style: double;
 }
 
-a:hover {
-    color: var(--link-hover-colour);
+.btn {
+    font-family: $headings-font-family;
+    font-weight: $headings-font-weight;
 }
 
-a[href^="#"] {
-    text-decoration-style: dotted;
+a {
+    &:hover {
+        color: var(--link-hover-colour);
+    }
+
+    &[href^="#"] {
+        text-decoration-style: dotted;
+    }
+
+    &.no-frills {
+        text-decoration: none;
+    }
+}
+
+p.boxed {
+    border: 1px solid;
+    border-radius: 1em;
+    margin: 1em 0;
+    padding: 0.5em 1em;
+}
+
+ul.dashed {
+    list-style-type: '— ';
 }
 
 .cogitare, a.cogitare {

@@ -22,7 +22,7 @@ nav.navbar {
     @extend .bg-light;
 }
 
-nav a {
+nav a, nav li > span {
     color: var(--title-colour);
     padding: 0 1rem;
     font-family: $headings-font-family;
@@ -43,6 +43,10 @@ nav a {
             color: var(--loginout-hover-colour) !important;
         }
     }
+}
+
+nav li.disabled {
+    text-decoration: line-through;
 }
 
 .item-input {

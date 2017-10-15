@@ -85,6 +85,12 @@
         </nav>
 
         <div class="content container">
+            @if (session('status'))
+                <div class="alert alert-success mb-4">
+                    {{ session('status') }}
+                </div>
+            @endif
+
             @yield('content')
         </div>
 

@@ -19,5 +19,8 @@ Route::get('login/token/{token}', [
 
 Route::get('/', 'PublicController@index')->name('root');
 Route::get('/docs', 'PublicController@docs')->name('docs');
-
 Route::get('/admin', 'HomeController@index')->name('admin');
+
+Route::resource('datasets', 'DatasetController');
+Route::resource('items', 'ItemController');
+Route::resource('tags', 'TagController');

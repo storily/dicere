@@ -1,12 +1,6 @@
 @extends('layouts.base')
 
 @section('content')
-@if (session('status'))
-    <div class="alert alert-success mb-4">
-        {{ session('status') }}
-    </div>
-@endif
-
 <h2>
     Kia ora!
     <small>{{ Auth::user()->email }}</small>
@@ -19,15 +13,16 @@
 </p>
 
 <nav class="nav justify-content-center">
-    <a href="/items">Items</a>
+    <a href="{{ route('items.index') }}">Items</a>
     <a href="/tags">Tags</a>
     <a href="/datasets">Datasets</a>
 </nav>
 
 <h3>Quickly add an item</h3>
 <p>The item will be added to your <a>personal dataset</a>.</p>
-<form action="/items/new" method="POST">
+<form action="{{ route('items.store') }}" method="POST">
     {{ csrf_field() }}
+    <input type="hidden" name="return_url" value="{{ route('admin') }}">
 
     <div class="form-group">
         <label for="new-item-text" class="control-label">Item / prompt / seed / plot</label>
@@ -59,7 +54,7 @@
 
     <div class="form-group justify-content-between d-flex mt-4">
         <button type="submit" class="btn btn-primary">Add</button>
-        <button type="submit" name="and-edit" class="btn btn-sm btn-outline-primary">Add and edit further</button>
+        <button type="submit" name="and_edit" class="btn btn-sm btn-outline-primary">Add and edit further</button>
     </div>
 </form>
 
@@ -71,6 +66,13 @@
     {{ $stats->buildTime }} to build.
 </p>
 
-<small class="form-text mb-2">The index is updated every 10 minutes, but you can trigger one now:</small>
-<button id="reindex" class="btn btn-primary">Reindex now</button>
+<form action="/search/reindex" method="POST">
+    {{ csrf_field() }}
+    <input type="hidden" name="return_url" value="{{ route('admin') }}">
+
+    <div class="form-group">
+        <small class="form-text mb-2">The index is updated every 10 minutes, but you can trigger one now:</small>
+        <button id="reindex" class="btn btn-primary">Reindex now</button>
+    </div>
+</form>
 @endsection
