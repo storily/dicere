@@ -49,6 +49,9 @@ class ItemController extends Controller
             'text' => $request->input('text'),
         ]);
 
+        $item->dataset()->associate(\Auth::user()->dataset());
+        $item->save();
+
         if ($request->input('tags')) {
             $tags = preg_split('/\s+/', strtolower(trim($request->input('tags'))));
             foreach ($tags as $name) {

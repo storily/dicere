@@ -2,10 +2,10 @@
 
 namespace App\Support;
 
-use Illuminate\Database\Eloquent\Model as EloquentModel;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Model extends EloquentModel
+class AuthModel extends Authenticatable
 {
     use MetaField;
     use SoftDeletes;

@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
-use App\Support\Model;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Support\AuthModel;
 
-class User extends Authenticatable
+class User extends AuthModel
 {
     protected $fillable = [
         'email',
@@ -30,6 +29,26 @@ class User extends Authenticatable
     public function mainDataset()
     {
         return $this->belongsTo(Dataset::class, 'main_dataset_id');
+    }
+
+    public function dataset()
+    {
+        $ds = $this->mainDataset;
+        if (!$ds) {
+            $ds = Dataset::create([
+                'name' => "{$this->email}’s dataset",
+                'description' => "{$this->email}’s personal dataset, where items go by default.",
+                'creator_id' => $this->id,
+                'metadata' => [
+                    'author' => $this->email
+                ]
+            ]);
+
+            $this->mainDataset()->associate($ds);
+            $this->save();
+        }
+
+        return $ds;
     }
 
     public function datasets()
