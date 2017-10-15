@@ -2,6 +2,11 @@
     max-width: map-get($container-max-widths, md);
     padding: 1em calc(#{map-get($container-max-widths, md)} / 2 - #{map-get($container-max-widths, sm)} / 2) 5em;
 
+    @include media-breakpoint-down(sm) {
+        max-width: map-get($container-max-widths, xs);
+        padding: 1em 1em 5em;
+    }
+
     nav {
         margin-top: 1em;
         margin-bottom: 1em;
@@ -38,4 +43,9 @@ nav a {
             color: var(--loginout-hover-colour) !important;
         }
     }
+}
+
+.item-input {
+    min-height: 5em;
+    resize: vertical;
 }

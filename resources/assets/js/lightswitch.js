@@ -10,5 +10,7 @@ function flipper (force) {
     window.localStorage.setItem('lightswitch', dark ? 'off' : 'on')
 }
 
-document.getElementById('lightswitch').addEventListener('click', () => flipper())
 flipper(window.localStorage.getItem('lightswitch') === 'off')
+Array.from(document.getElementsByClassName('lightswitch')).forEach((el) =>
+    el.addEventListener('click', () => flipper())
+)

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use AlgoliaSearch\Client;
+use Carbon\Carbon;
+use Carbon\CarbonInterval;
 
 class Search
 {
@@ -49,30 +51,50 @@ class Search
         );
     }
 
+    public static function stats(): \stdClass
+    {
+        $indexes = static::client()->listIndexes()['items'];
+        $stats = array_filter($indexes, function ($i) {
+            return $i['name'] === config('algolia.index');
+        })[0];
+
+        return (object) [
+            'created' => new Carbon($stats['createdAt']),
+            'updated' => new Carbon($stats['updatedAt']),
+            'entries' => $stats['entries'],
+            'dataSize' => $stats['dataSize'],
+            'fileSize' => $stats['fileSize'],
+            'buildTime' => CarbonInterval::seconds($stats['lastBuildTimeS']),
+        ];
+    }
+
     public static function reindex(callable $fn = null): array
     {
+        $total = Item::count() + Item::onlyTrashed()->count();
         $n = 0;
         $d = 0;
 
-        Item::with(['dataset', 'tags', 'tags.parent'])->chunk(100, function ($items) use ($fn, &$n) {
-            $n += count($items);
-            if ($fn) {
-                $fn(count($items, $n));
-            }
-            static::algolia()->addObjects($items->map(function ($item) {
-                return $item->indexObject();
-            })->all());
-        });
+        Item::with(['dataset', 'tags', 'tags.parent'])
+            ->chunk(100, function ($items) use ($fn, &$n, $total) {
+                $n += count($items);
+                if ($fn) {
+                    $fn(count($items), $total);
+                }
+                static::algolia()->addObjects($items->map(function ($item) {
+                    return $item->indexObject();
+                })->all());
+            });
 
-        Item::onlyTrashed()->with(['dataset', 'tags', 'tags.parent'])->chunk(100, function ($items) use ($fn, &$d) {
-            $d += count($items);
-            if ($fn) {
-                $fn(count($items, $d));
-            }
-            static::algolia()->deleteObjects($items->map(function ($item) {
-                return $item->id;
-            })->all());
-        });
+        Item::onlyTrashed()->with(['dataset', 'tags', 'tags.parent'])
+            ->chunk(100, function ($items) use ($fn, &$d, $total) {
+                $d += count($items);
+                if ($fn) {
+                    $fn(count($items), $total);
+                }
+                static::algolia()->deleteObjects($items->map(function ($item) {
+                    return $item->id;
+                })->all());
+            });
 
         return [$n, $d];
     }
@@ -93,6 +115,12 @@ class Search
         return (static::$index = static::$algolia->initIndex(
             config('algolia.index')
         ));
+    }
+
+    public static function client()
+    {
+        static::algolia();
+        return static::$algolia;
     }
 }
 

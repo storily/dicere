@@ -1,2 +1,2 @@
 web: vendor/bin/heroku-php-apache2 public/
-index: php reindex.php
+index: php artisan reindex

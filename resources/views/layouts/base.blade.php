@@ -15,6 +15,7 @@
     <body class="@yield('body-class')">
         <nav class="navbar">
             <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name', 'Dicere') }}</a>
+            <div class="lightswitch"></div>
 
             <button
                 class="navbar-toggler"
@@ -45,7 +46,7 @@
                     </li>
                 </ul>
 
-                <div id="lightswitch"></div>
+                <div class="lightswitch"></div>
                 <script src="{{ asset('js/lightswitch.js') }}"></script>
 
                 <ul class="navbar-nav">
@@ -87,7 +88,7 @@
             @yield('content')
         </div>
 
-        <script src="{{ asset('js/bootstrap.js') }}"></script>
+        <script async src="{{ asset('js/bootstrap.js') }}"></script>
         @yield('scripts')
     </body>
 </html>
