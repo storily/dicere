@@ -67,13 +67,16 @@
     {{ $stats->buildTime }} to build.
 </p>
 
-<form action="/search/reindex" method="POST">
+<form action="{{ route('reindex') }}" method="POST">
     {{ csrf_field() }}
-    <input type="hidden" name="return_url" value="{{ route('admin') }}">
 
     <div class="form-group">
-        <small class="form-text mb-2">The index is updated every 10 minutes, but you can trigger one now:</small>
-        <button id="reindex" class="btn btn-primary">Reindex now</button>
+        <small class="form-text mb-2">
+            The index is updated every 10 minutes automatically, but you can
+            trigger a reindex manually. Note that the above won't update immediately.
+        </small>
+
+        <button type="submit" class="btn btn-primary">Reindex now</button>
     </div>
 </form>
 @endsection

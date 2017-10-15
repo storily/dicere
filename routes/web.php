@@ -20,6 +20,7 @@ Route::get('login/token/{token}', [
 Route::get('/', 'PublicController@index')->name('root');
 Route::get('/docs', 'PublicController@docs')->name('docs');
 Route::get('/admin', 'HomeController@index')->name('admin');
+Route::post('/admin/reindex', 'HomeController@reindex')->name('reindex');
 
 Route::resource('datasets', 'DatasetController');
 Route::resource('items', 'ItemController');

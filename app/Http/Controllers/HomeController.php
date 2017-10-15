@@ -27,4 +27,10 @@ class HomeController extends Controller
         $stats = Search::stats();
         return view('home', ['stats' => $stats]);
     }
+
+    public function reindex(Request $request)
+    {
+        Search::reindex();
+        return redirect()->route('admin');
+    }
 }
