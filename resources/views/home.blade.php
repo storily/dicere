@@ -20,7 +20,7 @@
     {{ csrf_field() }}
     <input type="hidden" name="return_url" value="{{ route('admin') }}">
 
-    <div class="form-group">
+    <div class="form-group {{ $errors->has('text') ? 'has-error' : '' }}">
         <label for="new-item-text" class="control-label">Item / prompt / seed / plot</label>
         <textarea
             id="new-item-text"
@@ -29,28 +29,33 @@
             required
             autofocus
             autocomplete="off"
-        ></textarea>
+        >{{ old('text') }}</textarea>
+
+        @if ($errors->has('text'))
+        <small class="form-text text-danger">{{ $errors->first('text') }}</small>
+        @endif
     </div>
 
-    <div class="form-group">
+    <div class="form-group {{ $errors->has('tags') ? 'has-error' : '' }}">
         <label for="new-item-tags" class="control-label">Tags (optional)</label>
         <input
             id="new-item-tags"
             type="text"
             class="form-control"
             name="tags"
+            value="{{ old('tags') }}"
             autocomplete="off"
+            placeholder="Space-separated tags"
         >
 
-        <small class="form-text">
-            Tags are space-separated. Try to keep to the
-            <code>hyphenated-format</code>.
-        </small>
+        @if ($errors->has('tags'))
+        <small class="form-text text-danger">{{ $errors->first('tags') }}</small>
+        @endif
     </div>
 
     <div class="form-group justify-content-between d-flex mt-4">
         <button type="submit" class="btn btn-primary">Add</button>
-        <button type="submit" name="and_edit" class="btn btn-sm btn-outline-primary">Add and edit further</button>
+        <button type="submit" name="ignore_return" value="1" class="btn btn-sm btn-outline-primary">Add and edit further</button>
     </div>
 </form>
 

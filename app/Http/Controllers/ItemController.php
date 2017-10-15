@@ -18,7 +18,7 @@ class ItemController extends Controller
         return view('items.index', [
             'items' => (object) [
                 'count' => Item::count(),
-                'pages' => Item::orderBy('id')->simplePaginate(25)
+                'pages' => Item::orderBy('created', 'desc')->simplePaginate(25)
             ]
         ]);
     }
@@ -41,7 +41,33 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'text' => 'required|string|min:5|unique:items'
+        ]);
+
+        $item = Item::create([
+            'text' => $request->input('text'),
+        ]);
+
+        if ($request->input('tags')) {
+            $tags = preg_split('/\s+/', strtolower(trim($request->input('tags'))));
+            foreach ($tags as $name) {
+                $tag = Tag::where('name', $name)->first();
+                if (!$tag) {
+                    $tag = Tag::create(['name' => $name]);
+                }
+
+                $item->tags()->attach($tag->id);
+            }
+        }
+
+        if ($request->input('return_url')) {
+            if (!$request->input('ignore_return')) {
+                return redirect($request->input('return_url'));
+            }
+        }
+
+        return redirect()->route('items.show', $item);
     }
 
     /**
@@ -124,6 +150,7 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
-        //
+        $item->delete();
+        return redirect()->route('items.index');
     }
 }

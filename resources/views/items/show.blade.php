@@ -7,7 +7,12 @@
     <div class="col">Item #{{ $item->id }}</div>
     <div class="col-auto">
         <a class="btn btn-outline-primary" href="{{ route('items.edit', $item) }}">Edit</a>
-        <a class="btn btn-outline-danger" href="#">Delete</a>
+
+        <form action="{{ route('items.destroy', $item) }}" class="d-inline" method="POST">
+            {{ csrf_field() }}
+            {{ method_field('DELETE') }}
+            <button type="submit" class="btn btn-outline-danger text-lowercaps">Delete</button>
+        </form>
     </div>
 </h2>
 
