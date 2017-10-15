@@ -1,6 +1,8 @@
 @extends('layouts.base')
 
 @section('content')
+@include('shared.admin-nav')
+
 <h2 class="mb-4">
     {{ $items->count }} Items
 </h2>

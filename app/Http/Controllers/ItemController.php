@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -64,7 +65,9 @@ class ItemController extends Controller
      */
     public function edit(Item $item)
     {
-        //
+        return view('items.edit', [
+            'item' => $item
+        ]);
     }
 
     /**
@@ -76,7 +79,41 @@ class ItemController extends Controller
      */
     public function update(Request $request, Item $item)
     {
-        //
+        if ($request->input('text')) {
+            $item->text = $request->input('text');
+        }
+
+        if ($request->input('remove_tag')) {
+            $id = trim($request->input('remove_tag'));
+            $item->tags()->detach($id);
+        }
+
+        if ($request->input('new_tag')) {
+            $tags = preg_split('/\s+/', strtolower(trim($request->input('new_tag'))));
+            foreach ($tags as $name) {
+                $tag = Tag::where('name', $name)->first();
+                if (!$tag) {
+                    $tag = Tag::create(['name' => $name]);
+                }
+
+                $item->tags()->attach($tag->id);
+            }
+        }
+
+        if ($request->input('remove_metadata')) {
+            $key = trim($request->input('remove_metadata'));
+            $item->unsetMeta($key);
+        }
+
+        if ($request->input('new_metadata_key') && $request->input('new_metadata_value')) {
+            $key = trim($request->input('new_metadata_key'));
+            $value = trim($request->input('new_metadata_value'));
+
+            $item->setMeta($key, $value);
+        }
+
+        $item->save();
+        return redirect()->route('items.show', $item);
     }
 
     /**

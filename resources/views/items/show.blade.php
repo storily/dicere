@@ -1,6 +1,8 @@
 @extends('layouts.base')
 
 @section('content')
+@include('shared.admin-nav')
+
 <h2 class="d-flex flex-row">
     <div class="col">Item #{{ $item->id }}</div>
     <div class="col-auto">
@@ -13,7 +15,7 @@
     <li>
         Created {{ $item->created->diffForHumans() }}
         @if($item->created < $item->updated)
-        and updated {{ $item->created->diffForHumans() }}
+        and updated {{ $item->updated->diffForHumans() }}
         @endif
     </li>
 
@@ -35,7 +37,12 @@
             {{ $tag->name }}
         </a>
 
-        <button class="btn btn-sm btn-outline-warning">Remove</button>
+        <form action="{{ route('items.update', $item) }}" class="form-inline" method="POST">
+            {{ csrf_field() }}
+            {{ method_field('PUT') }}
+            <input type="hidden" name="remove_tag" value="{{ $tag->id }}">
+            <button type="submit" class="btn btn-sm btn-outline-warning ml-2">Remove</button>
+        </form>
     </li>
     @endforeach
 </ul>
@@ -64,16 +71,23 @@
 <h3>Metadata</h3>
 <ul class="list-group border border-secondary rounded">
     @foreach($item->metadata as $key => $value)
-    <li class="list-group-item d-flex flex-row align-item-stretch">
-        <div class="text-info">{{ $key }}:&nbsp;</div>
-        <div style="flex-grow: 1">{{ $value }}</div>
-        <button class="btn btn-sm btn-outline-primary">Edit</button>
-        <button class="btn btn-sm btn-outline-warning ml-2">Remove</button>
+    <li class="meta-item list-group-item d-flex flex-row align-item-stretch">
+        <div class="meta-key text-info">{{ $key }}:&nbsp;</div>
+        <div class="meta-value" style="flex-grow: 1">{{ $value }}</div>
+
+        <button class="btn btn-sm btn-outline-primary meta-edit">Edit</button>
+
+        <form action="{{ route('items.update', $item) }}" class="form-inline" method="POST">
+            {{ csrf_field() }}
+            {{ method_field('PUT') }}
+            <input type="hidden" name="remove_metadata" value="{{ $key }}">
+            <button type="submit" class="btn btn-sm btn-outline-warning ml-2">Remove</button>
+        </form>
     </li>
     @endforeach
 </ul>
 
-<form action="{{ route('items.update', $item) }}" method="POST">
+<form action="{{ route('items.update', $item) }}" method="POST" id="meta-form">
     {{ csrf_field() }}
     {{ method_field('PUT') }}
 

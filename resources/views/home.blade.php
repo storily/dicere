@@ -12,11 +12,7 @@
     from {{ App\Models\Dataset::count() }} datasets.
 </p>
 
-<nav class="nav justify-content-center">
-    <a href="{{ route('items.index') }}">Items</a>
-    <a href="/tags">Tags</a>
-    <a href="/datasets">Datasets</a>
-</nav>
+@include('shared.admin-nav')
 
 <h3>Quickly add an item</h3>
 <p>The item will be added to your <a>personal dataset</a>.</p>
