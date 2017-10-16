@@ -47,7 +47,7 @@
                 </ul>
 
                 <div class="lightswitch"></div>
-                <script src="{{ asset('js/lightswitch.js') }}"></script>
+                <script src="{{ asset('lightswitch.js') }}"></script>
 
                 <ul class="navbar-nav">
                     @guest
