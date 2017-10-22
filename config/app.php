@@ -169,6 +169,7 @@ return [
          */
         Barryvdh\Cors\ServiceProvider::class,
         Folklore\GraphQL\ServiceProvider::class,
+        Fideloper\Proxy\TrustedProxyServiceProvider::class,
 
         /*
          * Application Service Providers...
