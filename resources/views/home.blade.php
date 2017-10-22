@@ -72,8 +72,11 @@
 
     <div class="form-group">
         <small class="form-text mb-2">
-            The index is updated every 10 minutes automatically, but you can
-            trigger a reindex manually. Note that the above won't update immediately.
+            The index is updated automatically every day at 2 pm (NZ), but you can
+            trigger a reindex manually. As it uses up a large amount of the Algolia
+            monthly quota every time, only do it once edits are done for the time
+            being, and only if it's too far until 2 pm. Note that the above display
+            won't update immediately.
         </small>
 
         <button type="submit" class="btn btn-primary">Reindex now</button>
