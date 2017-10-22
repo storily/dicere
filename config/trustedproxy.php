@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'proxies' => '*',
+    'proxies' => '**',
     'headers' => [
         Illuminate\Http\Request::HEADER_FORWARDED    => null, // not set on Heroku
         Illuminate\Http\Request::HEADER_CLIENT_IP    => 'X_FORWARDED_FOR',
