@@ -53,7 +53,7 @@ class ItemController extends Controller
         $item->save();
 
         if ($request->input('tags')) {
-            $tags = preg_split('/\s+/', strtolower(trim($request->input('tags'))));
+            $tags = preg_split('/[,\s]+/', strtolower(trim($request->input('tags'))));
             foreach ($tags as $name) {
                 $tag = Tag::where('name', $name)->first();
                 if (!$tag) {
